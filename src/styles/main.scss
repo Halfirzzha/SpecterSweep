@@ -1,0 +1,626 @@
+@use "variables";
+@use "helpers";
+
+// =============================================
+// GLOBAL RESET & BASE STYLES
+// =============================================
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: variables.$bg-primary !important;
+}
+
+body {
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", sans-serif;
+  font-weight: variables.$font-weight-normal;
+  color: variables.$text-primary;
+  background: variables.$bg-primary !important;
+  overflow-x: hidden;
+}
+
+// =============================================
+// MAIN APPLICATION LAYOUT
+// =============================================
+
+.iu {
+  min-height: 100vh;
+  @include helpers.main-layout;
+  @include helpers.flex-column-center;
+  position: relative;
+
+  .overlay {
+    width: 100%;
+    min-height: 100vh;
+    background: variables.$bg-primary;
+    color: variables.$text-primary;
+    position: relative;
+    padding: variables.$space-4;
+
+    @include helpers.tablet-up {
+      padding: variables.$space-6;
+    }
+  }
+
+  // =============================================
+  // HEADER COMPONENT
+  // =============================================
+
+  .app-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4rem;
+    background: variables.$bg-secondary;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid variables.$border-primary;
+    z-index: variables.$z-fixed;
+    @include helpers.flex-center;
+    box-shadow: variables.$shadow-lg;
+
+    &-content {
+      padding: 0 variables.$space-4;
+      @include helpers.flex-between;
+      @include helpers.main-layout;
+      height: 100%;
+    }
+
+    .logo {
+      @include helpers.flex-center;
+      gap: variables.$space-3;
+      font-size: variables.$font-size-lg;
+      font-weight: variables.$font-weight-semibold;
+      letter-spacing: 1px;
+      color: variables.$text-accent;
+      cursor: pointer;
+      transition: all variables.$transition-normal;
+
+      &:hover {
+        color: variables.$clr-primary-light;
+        transform: scale(1.05);
+      }
+
+      .logo-text {
+        @include helpers.flex-column-center;
+        line-height: 1.2;
+      }
+
+      svg {
+        width: 2rem;
+        height: 2rem;
+        fill: currentColor;
+      }
+    }
+
+    .search-bar {
+      @include helpers.input-base;
+      max-width: 300px;
+      background: variables.$bg-surface;
+
+      &::placeholder {
+        color: variables.$text-muted;
+      }
+    }
+  }
+
+  // =============================================
+  // SIDEBAR COMPONENT
+  // =============================================
+
+  .app-sidebar {
+    position: sticky;
+    top: 4rem;
+    height: calc(100vh - 4rem);
+    min-width: 300px;
+    max-width: 350px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: variables.$bg-surface;
+    border-right: 1px solid variables.$border-primary;
+    backdrop-filter: blur(10px);
+    @include helpers.flex-column-center;
+    padding: variables.$space-6;
+    gap: variables.$space-4;
+
+    @include helpers.mobile-only {
+      min-width: 100%;
+      height: auto;
+      position: static;
+    }
+
+    // Custom scrollbar
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: variables.$border-primary;
+      border-radius: variables.$radius-full;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: variables.$border-accent;
+    }
+  }
+
+  // =============================================
+  // FORM ELEMENTS
+  // =============================================
+
+  label {
+    font-weight: variables.$font-weight-medium;
+    color: variables.$text-primary;
+    cursor: pointer;
+    margin-bottom: variables.$space-2;
+    display: inline-block;
+    transition: color variables.$transition-normal;
+
+    &:hover {
+      color: variables.$text-accent;
+    }
+  }
+
+  input[type="checkbox"] {
+    width: 1.2rem;
+    height: 1.2rem;
+    accent-color: variables.$clr-primary;
+    cursor: pointer;
+    margin-right: variables.$space-2;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  input[type="search"] {
+    @include helpers.input-base;
+  }
+
+  // =============================================
+  // LINKS
+  // =============================================
+
+  a {
+    color: variables.$text-accent;
+    text-decoration: none;
+    transition: all variables.$transition-normal;
+
+    &:hover {
+      color: variables.$clr-primary-light;
+      text-decoration: underline;
+    }
+
+    &:focus {
+      outline: 2px solid variables.$clr-primary;
+      outline-offset: 2px;
+      border-radius: variables.$radius-sm;
+    }
+  }
+
+  // =============================================
+  // BUTTONS
+  // =============================================
+
+  .run-scan {
+    @include helpers.button-primary;
+    font-size: variables.$font-size-xl;
+    padding: variables.$space-4 variables.$space-8;
+    border-radius: variables.$radius-xl;
+    min-height: 60px;
+    min-width: 200px;
+    font-weight: variables.$font-weight-semibold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+      );
+      transition: left 0.5s ease;
+    }
+
+    &:hover::before {
+      left: 100%;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+
+      &::before {
+        display: none;
+      }
+    }
+  }
+
+  button {
+    @include helpers.button-secondary;
+
+    &.btn-primary {
+      @include helpers.button-primary;
+    }
+
+    &.btn-success {
+      background: linear-gradient(
+        135deg,
+        variables.$clr-success 0%,
+        variables.$clr-accent-dark 100%
+      );
+      color: variables.$text-primary;
+
+      &:hover:not(:disabled) {
+        background: linear-gradient(
+          135deg,
+          variables.$clr-accent-light 0%,
+          variables.$clr-success 100%
+        );
+        transform: translateY(-2px);
+      }
+    }
+
+    &.btn-danger,
+    &.unfollow {
+      background: linear-gradient(
+        135deg,
+        variables.$clr-error 0%,
+        #dc2626 100%
+      );
+      color: variables.$text-primary;
+
+      &:hover:not(:disabled) {
+        background: linear-gradient(
+          135deg,
+          #f87171 0%,
+          variables.$clr-error 100%
+        );
+        transform: translateY(-2px);
+      }
+    }
+
+    &.copy-list {
+      @include helpers.button-secondary;
+      font-weight: variables.$font-weight-light;
+      padding: variables.$space-2;
+      border-radius: variables.$radius-md;
+      font-size: variables.$font-size-sm;
+    }
+  }
+
+  // =============================================
+  // PROGRESS BAR
+  // =============================================
+
+  .progressbar {
+    width: 100%;
+    height: 8px;
+    background: variables.$bg-tertiary;
+    border-radius: variables.$radius-full;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        variables.$clr-primary 0%,
+        variables.$clr-primary-light 100%
+      );
+      border-radius: variables.$radius-full;
+      transition: width 0.3s ease;
+    }
+  }
+
+  // =============================================
+  // RESULTS CONTAINER
+  // =============================================
+
+  .results-container,
+  .unfollow-log-container {
+    flex: 1;
+    padding-top: 4rem;
+  }
+
+  .results-container {
+    .alphabet-character {
+      border-bottom: 1px solid variables.$border-primary;
+      margin: variables.$space-4;
+      padding: variables.$space-4;
+      font-size: variables.$font-size-2xl;
+      font-weight: variables.$font-weight-semibold;
+      color: variables.$text-accent;
+    }
+
+    .result-item {
+      @include helpers.flex-center;
+      padding: variables.$space-4;
+      margin-bottom: variables.$space-2;
+      background: variables.$bg-surface;
+      border: 1px solid variables.$border-primary;
+      border-radius: variables.$radius-lg;
+      cursor: pointer;
+      transition: all variables.$transition-normal;
+      gap: variables.$space-4;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: variables.$border-accent;
+        transform: translateY(-2px);
+        box-shadow: variables.$shadow-lg;
+      }
+
+      .avatar-container {
+        position: relative;
+
+        &:hover {
+          .avatar {
+            filter: brightness(0.7) blur(1px);
+          }
+
+          .avatar-icon-overlay-container {
+            display: flex;
+          }
+        }
+
+        .avatar {
+          width: 75px;
+          height: 75px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 2px solid variables.$border-primary;
+          transition: all variables.$transition-normal;
+        }
+
+        .avatar-icon-overlay-container {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          display: none;
+          @include helpers.flex-center;
+          background: rgba(0, 0, 0, 0.7);
+          border-radius: 50%;
+          width: 75px;
+          height: 75px;
+
+          svg {
+            width: 24px;
+            height: 24px;
+            fill: variables.$text-primary;
+          }
+        }
+      }
+
+      .verified-badge {
+        background: #49adf4;
+        color: white;
+        border-radius: 50%;
+        padding: variables.$space-1;
+        font-size: variables.$font-size-xs;
+        font-weight: variables.$font-weight-bold;
+        min-width: 20px;
+        height: 20px;
+        @include helpers.flex-center;
+        transform: translateY(-10px);
+      }
+
+      .private-indicator {
+        border: 2px solid variables.$clr-success;
+        border-radius: variables.$radius-full;
+        color: variables.$clr-success;
+        font-weight: variables.$font-weight-medium;
+        padding: variables.$space-1 variables.$space-2;
+        font-size: variables.$font-size-xs;
+      }
+    }
+  }
+
+  .unfollow-log-container {
+    padding: variables.$space-4;
+  }
+
+  // =============================================
+  // TABS
+  // =============================================
+
+  .tabs-container {
+    @include helpers.flex-center;
+    padding: variables.$space-6;
+    gap: variables.$space-2;
+    background: variables.$bg-surface;
+    border-radius: variables.$radius-xl;
+    margin-bottom: variables.$space-4;
+
+    .tab {
+      flex: 1;
+      padding: variables.$space-3 variables.$space-4;
+      color: variables.$text-secondary;
+      background: transparent;
+      border: 1px solid variables.$border-primary;
+      border-radius: variables.$radius-lg;
+      cursor: pointer;
+      font-size: variables.$font-size-lg;
+      text-align: center;
+      transition: all variables.$transition-normal;
+      font-weight: variables.$font-weight-medium;
+
+      &:hover {
+        color: variables.$text-primary;
+        background: variables.$bg-tertiary;
+      }
+
+      &.tab-active {
+        color: variables.$text-primary;
+        background: variables.$clr-primary;
+        border-color: variables.$clr-primary;
+        box-shadow: variables.$shadow-md;
+      }
+    }
+  }
+
+  // =============================================
+  // BADGES
+  // =============================================
+
+  .badge {
+    background: variables.$bg-surface;
+    border: 1px solid variables.$border-primary;
+    border-radius: variables.$radius-lg;
+    padding: variables.$space-3;
+    color: variables.$text-primary;
+    font-weight: variables.$font-weight-medium;
+  }
+
+  // =============================================
+  // RESPONSIVE DESIGN
+  // =============================================
+
+  @include helpers.mobile-only {
+    .app-header {
+      .search-bar {
+        display: none;
+      }
+
+      .logo {
+        font-size: variables.$font-size-base;
+
+        .logo-text {
+          display: none;
+        }
+      }
+    }
+
+    .app-sidebar {
+      border-right: none;
+      border-bottom: 1px solid variables.$border-primary;
+    }
+
+    .run-scan {
+      font-size: variables.$font-size-lg;
+      padding: variables.$space-3 variables.$space-6;
+      min-width: 150px;
+      min-height: 50px;
+    }
+
+    .result-item {
+      .avatar-container .avatar {
+        width: 60px;
+        height: 60px;
+      }
+    }
+  }
+}
+
+// =============================================
+// TOAST COMPONENT
+// =============================================
+
+.toast {
+  position: fixed;
+  top: variables.$space-4;
+  right: variables.$space-4;
+  @include helpers.flex-between;
+  width: 100%;
+  max-width: 360px;
+  padding: variables.$space-4;
+  gap: variables.$space-3;
+  @include helpers.card-style;
+  background: variables.$bg-surface;
+  color: variables.$text-primary;
+  z-index: variables.$z-tooltip;
+  @include helpers.fade-in;
+
+  .toast-content {
+    flex: 1;
+    font-weight: variables.$font-weight-medium;
+  }
+
+  .toast-close {
+    @include helpers.button-secondary;
+    padding: variables.$space-1;
+    min-width: auto;
+    width: 32px;
+    height: 32px;
+
+    &:hover {
+      background: variables.$clr-error;
+      color: variables.$text-primary;
+    }
+  }
+
+  @include helpers.mobile-only {
+    left: variables.$space-4;
+    right: variables.$space-4;
+    max-width: none;
+  }
+}
+
+// =============================================
+// KEYFRAME ANIMATIONS
+// =============================================
+
+@keyframes progress-shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+// =============================================
+// ACCESSIBILITY IMPROVEMENTS
+// =============================================
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-contrast: high) {
+  .iu {
+    .app-header {
+      border-bottom-width: 2px;
+    }
+
+    .result-item {
+      border-width: 2px;
+    }
+
+    button {
+      border-width: 2px;
+    }
+  }
+}

@@ -1,0 +1,133 @@
+// Professional Color Palette - Soft & Eye-friendly
+// Primary Colors
+$clr-primary: #667eea; // Soft blue-purple
+$clr-primary-light: #818cf8; // Light blue-purple
+$clr-primary-dark: #4f46e5; // Dark blue-purple
+
+// Secondary Colors
+$clr-secondary: #f093fb; // Soft pink
+$clr-secondary-light: #f9a8ff; // Light pink
+$clr-secondary-dark: #e879f9; // Dark pink
+
+// Accent Colors
+$clr-accent: #10b981; // Soft emerald green
+$clr-accent-light: #34d399; // Light emerald
+$clr-accent-dark: #059669; // Dark emerald
+
+// Neutral Colors
+$clr-white: #ffffff;
+$clr-gray-50: #f9fafb;
+$clr-gray-100: #f3f4f6;
+$clr-gray-200: #e5e7eb;
+$clr-gray-300: #d1d5db;
+$clr-gray-400: #9ca3af;
+$clr-gray-500: #6b7280;
+$clr-gray-600: #4b5563;
+$clr-gray-700: #374151;
+$clr-gray-800: #1f2937;
+$clr-gray-900: #111827;
+
+// Semantic Colors
+$clr-success: #10b981; // Success green
+$clr-warning: #f59e0b; // Warning amber
+$clr-error: #ef4444; // Error red
+$clr-info: #3b82f6; // Info blue
+
+// Background Colors
+$bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+$bg-secondary: $clr-gray-800;
+$bg-tertiary: $clr-gray-700;
+$bg-surface: rgba(255, 255, 255, 0.05);
+$bg-overlay: rgba(0, 0, 0, 0.8);
+
+// Text Colors
+$text-primary: $clr-white;
+$text-secondary: $clr-gray-300;
+$text-muted: $clr-gray-400;
+$text-accent: $clr-primary-light;
+
+// Border Colors
+$border-primary: rgba(255, 255, 255, 0.1);
+$border-secondary: rgba(255, 255, 255, 0.05);
+$border-accent: $clr-primary-light;
+
+// Shadows
+$shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+  0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+  0 4px 6px -2px rgba(0, 0, 0, 0.05);
+$shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+  0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+// Spacing System
+$space-1: 0.25rem; // 4px
+$space-2: 0.5rem; // 8px
+$space-3: 0.75rem; // 12px
+$space-4: 1rem; // 16px
+$space-5: 1.25rem; // 20px
+$space-6: 1.5rem; // 24px
+$space-8: 2rem; // 32px
+$space-10: 2.5rem; // 40px
+$space-12: 3rem; // 48px
+$space-16: 4rem; // 64px
+$space-20: 5rem; // 80px
+
+// Legacy support (keeping for compatibility)
+$size-small: $space-2;
+$size-medium: $space-4;
+$size-large: $space-6;
+$size-xlarge: $space-8;
+
+// Border Radius
+$radius-sm: 0.125rem; // 2px
+$radius-md: 0.375rem; // 6px
+$radius-lg: 0.5rem; // 8px
+$radius-xl: 0.75rem; // 12px
+$radius-2xl: 1rem; // 16px
+$radius-full: 9999px; // Full circle
+
+// Legacy support
+$border-radius: $radius-lg;
+$border-color: $border-primary;
+
+// Typography
+$font-size-xs: 0.75rem; // 12px
+$font-size-sm: 0.875rem; // 14px
+$font-size-base: 1rem; // 16px
+$font-size-lg: 1.125rem; // 18px
+$font-size-xl: 1.25rem; // 20px
+$font-size-2xl: 1.5rem; // 24px
+$font-size-3xl: 1.875rem; // 30px
+$font-size-4xl: 2.25rem; // 36px
+
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+$line-height-tight: 1.25;
+$line-height-normal: 1.5;
+$line-height-relaxed: 1.75;
+
+// Animation & Transitions
+$transition-fast: 150ms ease-in-out;
+$transition-normal: 300ms ease-in-out;
+$transition-slow: 500ms ease-in-out;
+
+// Z-index scale
+$z-dropdown: 1000;
+$z-sticky: 1020;
+$z-fixed: 1030;
+$z-modal-backdrop: 1040;
+$z-modal: 1050;
+$z-popover: 1060;
+$z-tooltip: 1070;
+
+// Breakpoints
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-2xl: 1400px;

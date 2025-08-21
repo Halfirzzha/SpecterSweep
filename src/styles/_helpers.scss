@@ -1,0 +1,625 @@
+@use "variables";
+
+// =============================================
+// PROFESSIONAL MIXIN LIBRARY
+// =============================================
+
+// Layout Mixins
+@mixin main-layout {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 variables.$space-4;
+}
+
+@mixin container($max-width: 1200px) {
+  width: 100%;
+  max-width: $max-width;
+  margin: 0 auto;
+  padding-left: variables.$space-4;
+  padding-right: variables.$space-4;
+}
+
+@mixin glass-morphism($opacity: 0.1) {
+  background: rgba(255, 255, 255, $opacity);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+@mixin card-style {
+  background: variables.$bg-surface;
+  border-radius: variables.$radius-xl;
+  border: 1px solid variables.$border-primary;
+  box-shadow: variables.$shadow-lg;
+  @include glass-morphism(0.05);
+}
+
+// Flexbox Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+// Button Mixins
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: variables.$space-3 variables.$space-6;
+  border: none;
+  border-radius: variables.$radius-lg;
+  font-weight: variables.$font-weight-medium;
+  font-size: variables.$font-size-sm;
+  line-height: 1;
+  cursor: pointer;
+  transition: all variables.$transition-normal;
+  text-decoration: none;
+  user-select: none;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+@mixin button-primary {
+  @include button-base;
+  background: linear-gradient(
+    135deg,
+    variables.$clr-primary 0%,
+    variables.$clr-primary-dark 100%
+  );
+  color: variables.$text-primary;
+  box-shadow: variables.$shadow-md;
+
+  &:hover:not(:disabled) {
+    background: linear-gradient(
+      135deg,
+      variables.$clr-primary-light 0%,
+      variables.$clr-primary 100%
+    );
+    transform: translateY(-2px);
+    box-shadow: variables.$shadow-lg;
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: variables.$shadow-md;
+  }
+}
+
+@mixin button-secondary {
+  @include button-base;
+  background: transparent;
+  color: variables.$text-secondary;
+  border: 1px solid variables.$border-primary;
+
+  &:hover:not(:disabled) {
+    background: variables.$bg-surface;
+    color: variables.$text-primary;
+    border-color: variables.$border-accent;
+  }
+}
+
+// Input Mixins
+@mixin input-base {
+  width: 100%;
+  padding: variables.$space-3 variables.$space-4;
+  background: variables.$bg-surface;
+  border: 1px solid variables.$border-primary;
+  border-radius: variables.$radius-lg;
+  color: variables.$text-primary;
+  font-size: variables.$font-size-sm;
+  transition: all variables.$transition-normal;
+
+  &::placeholder {
+    color: variables.$text-muted;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: variables.$border-accent;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  }
+}
+
+// Animation Mixins
+@mixin fade-in($duration: variables.$transition-normal) {
+  animation: fadeIn $duration ease-in-out;
+}
+
+@mixin slide-up($duration: variables.$transition-normal) {
+  animation: slideUp $duration ease-out;
+}
+
+// Responsive Mixins
+@mixin mobile-only {
+  @media (max-width: #{variables.$breakpoint-md - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet-up {
+  @media (min-width: #{variables.$breakpoint-md}) {
+    @content;
+  }
+}
+
+@mixin desktop-up {
+  @media (min-width: #{variables.$breakpoint-lg}) {
+    @content;
+  }
+}
+
+// =============================================
+// UTILITY CLASSES
+// =============================================
+
+.with-app-header {
+  padding-top: 4rem !important;
+}
+
+// Flexbox Utilities
+.flex {
+  display: flex;
+
+  &.align-center {
+    align-items: center;
+  }
+
+  &.justify-center {
+    justify-content: center;
+  }
+
+  &.justify-between {
+    justify-content: space-between;
+  }
+
+  &.column {
+    flex-direction: column;
+  }
+
+  &.wrap {
+    flex-wrap: wrap;
+  }
+
+  &.gap-1 {
+    gap: variables.$space-1;
+  }
+  &.gap-2 {
+    gap: variables.$space-2;
+  }
+  &.gap-3 {
+    gap: variables.$space-3;
+  }
+  &.gap-4 {
+    gap: variables.$space-4;
+  }
+  &.gap-6 {
+    gap: variables.$space-6;
+  }
+  &.gap-8 {
+    gap: variables.$space-8;
+  }
+}
+
+.grow {
+  flex: 1;
+}
+
+// Width Utilities
+.w {
+  &-auto {
+    width: auto;
+  }
+  &-25 {
+    width: 25%;
+  }
+  &-50 {
+    width: 50%;
+  }
+  &-75 {
+    width: 75%;
+  }
+  &-100 {
+    width: 100%;
+  }
+  &-full {
+    width: 100%;
+  }
+}
+
+// Padding Utilities
+.p {
+  &-0 {
+    padding: 0;
+  }
+  &-1 {
+    padding: variables.$space-1;
+  }
+  &-2 {
+    padding: variables.$space-2;
+  }
+  &-3 {
+    padding: variables.$space-3;
+  }
+  &-4 {
+    padding: variables.$space-4;
+  }
+  &-6 {
+    padding: variables.$space-6;
+  }
+  &-8 {
+    padding: variables.$space-8;
+  }
+  &-small {
+    padding: variables.$space-2;
+  }
+  &-medium {
+    padding: variables.$space-4;
+  }
+  &-large {
+    padding: variables.$space-6;
+  }
+  &-xlarge {
+    padding: variables.$space-8;
+  }
+  &-clear {
+    padding: 0;
+  }
+}
+
+// Margin Utilities
+.m {
+  &-0 {
+    margin: 0;
+  }
+  &-1 {
+    margin: variables.$space-1;
+  }
+  &-2 {
+    margin: variables.$space-2;
+  }
+  &-3 {
+    margin: variables.$space-3;
+  }
+  &-4 {
+    margin: variables.$space-4;
+  }
+  &-6 {
+    margin: variables.$space-6;
+  }
+  &-8 {
+    margin: variables.$space-8;
+  }
+  &-auto {
+    margin: auto;
+  }
+  &-small {
+    margin: variables.$space-2;
+  }
+  &-medium {
+    margin: variables.$space-4;
+  }
+  &-large {
+    margin: variables.$space-6;
+  }
+  &-xlarge {
+    margin: variables.$space-8;
+  }
+  &-clear {
+    margin: 0;
+  }
+}
+
+// Text Utilities
+.text {
+  &-center {
+    text-align: center;
+  }
+  &-left {
+    text-align: left;
+  }
+  &-right {
+    text-align: right;
+  }
+
+  &-xs {
+    font-size: variables.$font-size-xs;
+  }
+  &-sm {
+    font-size: variables.$font-size-sm;
+  }
+  &-base {
+    font-size: variables.$font-size-base;
+  }
+  &-lg {
+    font-size: variables.$font-size-lg;
+  }
+  &-xl {
+    font-size: variables.$font-size-xl;
+  }
+  &-2xl {
+    font-size: variables.$font-size-2xl;
+  }
+
+  &-light {
+    font-weight: variables.$font-weight-light;
+  }
+  &-normal {
+    font-weight: variables.$font-weight-normal;
+  }
+  &-medium {
+    font-weight: variables.$font-weight-medium;
+  }
+  &-semibold {
+    font-weight: variables.$font-weight-semibold;
+  }
+  &-bold {
+    font-weight: variables.$font-weight-bold;
+  }
+
+  &-primary {
+    color: variables.$text-primary;
+  }
+  &-secondary {
+    color: variables.$text-secondary;
+  }
+  &-muted {
+    color: variables.$text-muted;
+  }
+  &-accent {
+    color: variables.$text-accent;
+  }
+}
+
+// Legacy Font Size Support
+.fs {
+  &-small {
+    font-size: variables.$font-size-sm;
+  }
+  &-medium {
+    font-size: variables.$font-size-base;
+  }
+  &-large {
+    font-size: variables.$font-size-lg;
+  }
+  &-xlarge {
+    font-size: variables.$font-size-xl;
+  }
+}
+
+// Color Utilities (Legacy)
+.clr {
+  &-inherit {
+    color: inherit;
+  }
+  &-red {
+    color: variables.$clr-error;
+  }
+  &-green {
+    color: variables.$clr-success;
+  }
+  &-cyan {
+    color: variables.$clr-info;
+  }
+  &-primary {
+    color: variables.$text-primary;
+  }
+  &-secondary {
+    color: variables.$text-secondary;
+  }
+}
+
+// Display Utilities
+.d {
+  &-none {
+    display: none;
+  }
+  &-block {
+    display: block;
+  }
+  &-inline {
+    display: inline;
+  }
+  &-inline-block {
+    display: inline-block;
+  }
+  &-flex {
+    display: flex;
+  }
+}
+
+// Position Utilities
+.pos-relative {
+  position: relative;
+}
+.pos-absolute {
+  position: absolute;
+}
+.pos-fixed {
+  position: fixed;
+}
+.pos-sticky {
+  position: sticky;
+}
+
+// Text Alignment (Legacy)
+.t {
+  &-center {
+    text-align: center;
+  }
+  &-left {
+    text-align: left;
+  }
+  &-right {
+    text-align: right;
+  }
+}
+
+// Professional Component Styles
+.setting-menu {
+  position: absolute;
+  top: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(750px, 90vw);
+  min-height: 290px;
+  @include card-style;
+  padding: variables.$space-6;
+  z-index: variables.$z-modal;
+  @include fade-in;
+
+  h3 {
+    text-align: center;
+    color: variables.$text-primary;
+    font-weight: variables.$font-weight-semibold;
+    margin-bottom: variables.$space-6;
+    font-size: variables.$font-size-xl;
+  }
+
+  .btn-container {
+    display: flex;
+    justify-content: center;
+    gap: variables.$space-3;
+    margin-top: variables.$space-6;
+    padding-top: variables.$space-4;
+    border-top: 1px solid variables.$border-primary;
+  }
+
+  label {
+    font-weight: variables.$font-weight-medium;
+    color: variables.$text-primary;
+    margin-bottom: variables.$space-2;
+    display: block;
+  }
+
+  input {
+    @include input-base;
+    max-width: 100px;
+    margin-left: variables.$space-2;
+  }
+}
+
+.minimun-width {
+  min-width: 350px;
+}
+
+.margin-between-input-and-label {
+  margin-left: variables.$space-2;
+}
+
+.btn {
+  @include button-secondary;
+  min-width: 65px !important;
+  height: auto !important;
+  padding: variables.$space-2 variables.$space-3 !important;
+
+  &:hover {
+    @include button-primary;
+  }
+
+  &.btn-primary {
+    @include button-primary;
+  }
+
+  &.btn-danger {
+    background: linear-gradient(135deg, variables.$clr-error 0%, #dc2626 100%);
+    color: variables.$text-primary;
+
+    &:hover:not(:disabled) {
+      background: linear-gradient(
+        135deg,
+        #f87171 0%,
+        variables.$clr-error 100%
+      );
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: variables.$bg-overlay;
+  z-index: variables.$z-modal-backdrop;
+  backdrop-filter: blur(4px);
+  @include fade-in;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: variables.$space-4;
+  margin-bottom: variables.$space-4;
+}
+
+.warning {
+  color: variables.$clr-warning;
+  font-weight: variables.$font-weight-medium;
+
+  b {
+    color: variables.$clr-error;
+    font-weight: variables.$font-weight-bold;
+  }
+}
+
+// =============================================
+// KEYFRAME ANIMATIONS
+// =============================================
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
